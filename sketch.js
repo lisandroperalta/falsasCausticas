@@ -10,12 +10,11 @@ function setup() {
 
 function draw() {
   background(0);
- 
 
   stroke(255, 15);
   strokeWeight(4);
   translate(width / 2, height / 2);
-  rotate(radians((frameCount*0.5)*ruido));
+  rotate(radians(frameCount * 0.5 * ruido));
   p1 = sin(radians(frameCount)) * 100;
   p2 = cos(radians(frameCount)) * 210;
   ruido = noise(frameCount * 0.0025);
@@ -30,6 +29,8 @@ function draw() {
     line(0, 0, 250, 0);
     pop();
   }
+}
 
-  if (frameCount % 60 == 0) print(radians((frameCount*0.5)*ruido));
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
