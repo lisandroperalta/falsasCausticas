@@ -21,18 +21,19 @@ function draw() {
     var posicion = i / cantidadDeRayos;
 
     var largo;
-    if (posicion < 0.5) largo = easeOutCubic(posicion) * 250;
-    if (posicion > 0.5) largo = easeOutCubic(1 - posicion) * 250;
+    if (posicion < 0.5) largo = easeOutCubic(posicion) * 300;
+    if (posicion > 0.5) largo = easeOutCubic(1 - posicion) * 300;
 
     var opacidad;
-    if (posicion < 0.5) opacidad = easeOutCubic(posicion) * 50;
-    if (posicion > 0.5) opacidad = easeOutCubic(1 - posicion) * 50;
+    if (posicion < 0.5) opacidad = easeOutCubic(posicion) * 40;
+    if (posicion > 0.5) opacidad = easeOutCubic(1 - posicion) * 40;
 
     rotate(radians(i));
     translate(0.5, 200);
     rotate(radians(i * ruido));
     translate(ruido * 100, 250 * ruido);
     rotate(radians(frameCount / 10 + i));
+    blendMode(ADD);
     stroke(255, opacidad);
     line(0, 0, largo, 0);
     pop();
