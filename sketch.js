@@ -3,7 +3,7 @@ let p2;
 let ruido;
 let cantidadDeRayos = 1000;
 function setup() {
-  createCanvas(innerWidth, innerHeight);
+  createCanvas(1080,1080);
 
   background(0);
 }
@@ -41,10 +41,16 @@ function draw() {
   if (frameCount % 20 == 0) console.log(frameRate());
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
-
 function easeOutCubic(x) {
   return 1 - Math.pow(1 - x, 3);
+}
+
+function keyPressed() {
+  if (key == " ") {
+    saveCanvas("screenshot" + frameCount, "png");
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
