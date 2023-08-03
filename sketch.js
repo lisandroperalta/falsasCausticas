@@ -1,7 +1,7 @@
 let p1;
 let p2;
 let ruido;
-
+let cantidadDeRayos = 1000;
 function setup() {
   createCanvas(innerWidth, innerHeight);
 
@@ -11,26 +11,40 @@ function setup() {
 function draw() {
   background(0);
 
-  stroke(255, 15);
-  strokeWeight(4);
   translate(width / 2, height / 2);
   rotate(radians(frameCount * 0.5 * ruido));
-  p1 = sin(radians(frameCount)) * 100;
-  p2 = cos(radians(frameCount)) * 210;
   ruido = noise(frameCount * 0.0025);
-  for (var i = 0; i < 1500; i++) {
+  strokeWeight(4);
+
+  for (var i = 0; i < cantidadDeRayos; i++) {
     push();
+    var posicion = i / cantidadDeRayos;
+
+    var largo;
+    if (posicion < 0.5) largo = easeOutCubic(posicion) * 250;
+    if (posicion > 0.5) largo = easeOutCubic(1 - posicion) * 250;
+
+    var opacidad;
+    if (posicion < 0.5) opacidad = easeOutCubic(posicion) * 50;
+    if (posicion > 0.5) opacidad = easeOutCubic(1 - posicion) * 50;
+
     rotate(radians(i));
-    translate(0, 200);
+    translate(0.5, 200);
     rotate(radians(i * ruido));
     translate(ruido * 100, 250 * ruido);
     rotate(radians(frameCount / 10 + i));
-    blendMode(ADD);
-    line(0, 0, 250, 0);
+    stroke(255, opacidad);
+    line(0, 0, largo, 0);
     pop();
   }
+
+  if (frameCount % 20 == 0) console.log(frameRate());
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+
+function easeOutCubic(x) {
+  return 1 - Math.pow(1 - x, 3);
 }
